@@ -1,0 +1,34 @@
+.telemetry {height: 100%; display: flex; flex-direction: column; }
+.screen { flex: 1; }
+.telemetry > .matrix {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 350px;
+}
+
+.telemetry > .matrix > .absolute { 
+    position: absolute;
+    font-size: 22px;
+    top : -2em;
+    left: 0.5em;
+    font-weight: 600;
+}
+.telemetry > .matrix > .absolute > p { padding: 0; margin: 0; }
+.telemetry > .matrix > div {
+    font-size: 18px;
+    padding: 0.5em;
+    border: 1px solid #000000;
+    text-align: center;
+}
+.telemetry > .matrix > .item-1 {}
+.telemetry > .matrix > .item-2 {}
+.telemetry > .matrix > .item-3 {}
+.telemetry > .matrix > .item-4 {}
+.telemetry > .matrix > .item-5 {}
+.telemetry > .matrix > .item-6 { grid-row: 2/4; grid-column: 2/4; }
+.telemetry > .matrix > .item-7 { grid-column: 4; grid-row: 2/4; }
+.telemetry > .matrix > .item-8 { grid-column: 1; }
+.telemetry > .matrix .status { display: flex; justify-content: center; align-items: center; height: 100%; }
+.telemetry > .matrix .status > p { font-size: 28px; font-weight: 900; }
+.telemetry > .matrix .battery { height : 100%; display: flex; justify-content: center; align-items: center; }
+.telemetry > .matrix .battery > p { font-size: 24px; }
