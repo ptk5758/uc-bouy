@@ -1,5 +1,5 @@
 import React from "react"
-import "../../css/layout.css"
+import "../../css/telemetry.css"
 import { Battery, Status } from "./components"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faTemperatureThreeQuarters, faWind, faWater } from "@fortawesome/free-solid-svg-icons"
@@ -41,6 +41,7 @@ function Screen() {
                     <p>PROMPT</p>
                 </a>
             </span>
+            <span className="backlogo"><p>울산과학대학교 혁신지원사업</p></span>
             <div className="information">
                 <Icon icon={faTemperatureThreeQuarters} text="21.3" key={1}/>
                 <Icon icon={faWater} text="21.3" key={2}/>
