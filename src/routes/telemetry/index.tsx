@@ -1,6 +1,9 @@
 import React from "react"
 import "../../css/layout.css"
 import { Battery, Status } from "./components"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faTemperatureThreeQuarters, faWind, faWater } from "@fortawesome/free-solid-svg-icons"
+import { IconProp } from "@fortawesome/fontawesome-svg-core"
 export default function() {
     return (
         <div className="telemetry">
@@ -33,7 +36,31 @@ function Matrix() {
 function Screen() {
     return (
         <div className="screen">
-            ddd
+            <span className="absolute">
+                <a className="prompt-button" href="/prompt">
+                    <p>PROMPT</p>
+                </a>
+            </span>
+            <div className="information">
+                <Icon icon={faTemperatureThreeQuarters} text="21.3" key={1}/>
+                <Icon icon={faWater} text="21.3" key={2}/>
+                <Icon icon={faWind} text="21.3" key={3}/>
+            </div>
         </div>
+    )
+}
+
+interface InformationIconProp
+{
+    text : string;
+    icon : IconProp;
+}
+
+function Icon({icon, text} : InformationIconProp) {
+    return (
+        <span className="icon">
+            <FontAwesomeIcon size="8x" icon={icon}/>
+            <p>{ text }</p>
+        </span>
     )
 }
