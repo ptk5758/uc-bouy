@@ -3,13 +3,35 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import RootRoute from './routes/root';
+import Telemetry from './routes/telemetry';
+import Prompt from './routes/prompt';
+
+const router = createBrowserRouter([
+  {
+    path : "/",
+    element : <RootRoute/>
+  },
+  {
+    path : "/telemetry",
+    element : <Telemetry/>
+  },
+  {
+    path : "/prompt",
+    element : <Prompt/>
+  },
+  
+
+])
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
+
 root.render(
   <React.StrictMode>
-    <App />
+    <RouterProvider router={router}/>
   </React.StrictMode>
 );
 
