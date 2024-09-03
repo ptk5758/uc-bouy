@@ -21,3 +21,4 @@ p {
   padding: 0;
   margin: 0;
 }
+a { outline: none; text-decoration: none; }
