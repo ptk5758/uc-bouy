@@ -9,4 +9,5 @@ interface SerialPort {
     close(): Promise<void>;
     readable: ReadableStream<any>;
     writable: WritableStream<any>;
+    getInfo : any;
 }

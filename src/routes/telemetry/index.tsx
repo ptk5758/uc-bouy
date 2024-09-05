@@ -11,7 +11,7 @@ export default function() {
             <Matrix/>
         </div>
     )
-}
+} 
 
 function Matrix() {
     return (
