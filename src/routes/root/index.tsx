@@ -1,11 +1,18 @@
 import { useCallback, useEffect } from "react"
 import { useSerialPort } from "../../hooks/useSerialPort"
+import { useSerialNetwork } from "../../contexts/serialNetwork"
 
 function RootRoute() {
+    const { port, error, request, setListener } = useSerialNetwork()
     const dataHandle = useCallback((data : string) => {
-        console.log(data)
+        console.log(`[Serial] : ${data}`)
     }, [])
-    const { error, port, request } = useSerialPort({onData : dataHandle})
+    useEffect(() => {
+        setListener(dataHandle);
+        return () => {
+          setListener(() => {});
+        };
+      }, [setListener]);
     if (!port) {
         return <div><button onClick={request}>Serial Port Select</button></div>
     }

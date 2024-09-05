@@ -7,6 +7,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import RootRoute from './routes/root';
 import Telemetry from './routes/telemetry';
 import Prompt from './routes/prompt';
+import { SerialNetworkProvider } from './contexts/serialNetwork';
 
 const router = createBrowserRouter([
   {
@@ -31,7 +32,9 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <RouterProvider router={router}/>
+    <SerialNetworkProvider>
+      <RouterProvider router={router}/>
+    </SerialNetworkProvider>
   </React.StrictMode>
 );
 
