@@ -1,6 +1,18 @@
 import { Link } from "react-router-dom"
 import "../../css/prompt.css"
+import { useSerialNetwork } from "../../contexts/serialNetwork"
+import { useCallback, useEffect } from "react"
 export default function() {
+    const { setListener } = useSerialNetwork()
+    const dataHandle = useCallback((data : string) => {
+        console.log(data)
+    }, [])
+    useEffect(() => {
+        setListener(dataHandle)
+        return () => {
+            setListener(() => {})
+        }
+    }, [])
     return (
         <div className="prompt">
             <div className="board">

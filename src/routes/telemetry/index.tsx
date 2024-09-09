@@ -4,6 +4,7 @@ import { Battery, Status } from "./components"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faTemperatureThreeQuarters, faWind, faWater } from "@fortawesome/free-solid-svg-icons"
 import { IconProp } from "@fortawesome/fontawesome-svg-core"
+import { Link } from "react-router-dom"
 export default function() {
     return (
         <div className="telemetry">
@@ -37,9 +38,9 @@ function Screen() {
     return (
         <div className="screen">
             <span className="absolute">
-                <a className="prompt-button" href="/prompt">
+                <Link className="prompt-button" to="/prompt">
                     <p>PROMPT</p>
-                </a>
+                </Link>
             </span>
             <span className="backlogo"><p>울산과학대학교 혁신지원사업</p></span>
             <div className="information">

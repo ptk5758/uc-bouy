@@ -1,18 +1,10 @@
 import { useCallback, useEffect } from "react"
 import { useSerialPort } from "../../hooks/useSerialPort"
 import { useSerialNetwork } from "../../contexts/serialNetwork"
+import { Link } from "react-router-dom"
 
 function RootRoute() {
-    const { port, error, request, setListener } = useSerialNetwork()
-    const dataHandle = useCallback((data : string) => {
-        console.log(`[Serial] : ${data}`)
-    }, [])
-    useEffect(() => {
-        setListener(dataHandle);
-        return () => {
-          setListener(() => {});
-        };
-      }, [setListener]);
+    const { port, error, request } = useSerialNetwork()
     if (!port) {
         return <div><button onClick={request}>Serial Port Select</button></div>
     }
@@ -40,7 +32,7 @@ interface NavigationItemProp
     text : string    
 }
 function NavigationItem({href, text} : NavigationItemProp) {
-    return <a href={href}><h1>{text}</h1></a>
+    return <Link to={href}><h1>{text}</h1></Link>
 }
 
 export default RootRoute
