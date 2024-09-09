@@ -22,13 +22,16 @@
 }
 .prompt > .board > .terminal {
     background-color: rgb(41, 41, 41);    
-    overflow-y: scroll;
+    overflow: scroll;
     color: white;
     padding-left: 0.5em;
-    padding-top: 0.5em;
-    flex: 1;
+    padding-top: 0.5em;    
+    height: 65vh;
 }
-
+.prompt > .board > .terminal > p {}
+.prompt > .board > .terminal > p.RECEIVE { color: green; }
+.prompt > .board > .terminal > p.SEND { color: white; }
+.prompt > .board > .terminal > p.ERROR { color: red; }
 
 
 

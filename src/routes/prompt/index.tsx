@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom"
 import "../../css/prompt.css"
 import { useSerialNetwork } from "../../contexts/serialNetwork"
-import { useCallback, useEffect, useState } from "react"
+import { useCallback, useEffect, useRef, useState } from "react"
 
-type CommandType = "SEND" | "RECEIVE"
+type CommandType = "SEND" | "RECEIVE" | "ERROR"
 interface PromptLog
 {
     line : string;
@@ -11,14 +11,29 @@ interface PromptLog
 }
 export default function() {
     const [log, setLog] = useState<PromptLog[]>([])
-    const { setListener, error } = useSerialNetwork()
-    const dataHandle = useCallback((data : string) => {        
-        setLog(prev => [...prev, {line : data, type : "RECEIVE"}])        
+    const { setListener, error, port } = useSerialNetwork()
+    const receiveHandle = useCallback((data : string) => {        
+        setLog(prev => [...prev, {line : data, type : "RECEIVE"}])
     }, [])
     useEffect(() => {
-        setListener(dataHandle)
+        setListener(receiveHandle)
         return () => {
             setListener(() => {})
+        }
+    }, [])    
+    const sendHandle = useCallback(async (text : string) => {
+        try {
+            let buffer = new TextEncoder().encode(text);
+            const writer = port?.writable.getWriter()
+            await writer?.write(buffer)
+            await writer?.close()
+            setLog(prev => [...prev, {line : text, type : "SEND"}])
+        } catch (error) {
+            let message = "Error...."
+            if (error instanceof Error) {
+                message = error.message
+            }
+            setLog(prev => [...prev, {line : message, type : "ERROR"}])
         }
     }, [])
     return (
@@ -33,17 +48,26 @@ export default function() {
                 />
             </div>
             <div className="command">
-                <Input/>
+                <Input
+                    textHandle={sendHandle}
+                />
             </div>
         </div>
     )
 }
 
-function Input() {
+function Input({textHandle} : { textHandle? : (text : string) => void }) {
+    const field = useRef<HTMLTextAreaElement>(null)
+    const sendHandle = useCallback(() => {        
+        if (field.current && field.current.value !== "") {            
+            textHandle?.call(null, field.current.value)
+            field.current.value = ""
+        }
+    }, [])    
     return (
         <div className="field">
-            <textarea></textarea>
-            <button>SEND</button>
+            <textarea ref={field}></textarea>
+            <button onClick={sendHandle}>SEND</button>
         </div>
     )
 }
