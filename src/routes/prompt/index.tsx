@@ -41,7 +41,7 @@ export default function() {
             <div className="board">
                 <div className="top">
                     <h1>Prompt</h1>
-                    <Link to={"/telemetry"}>Back</Link>
+                    <Link to={"/"}>HOME</Link>
                 </div>
                 <Terminal
                     lines={log}

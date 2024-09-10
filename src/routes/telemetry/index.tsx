@@ -1,11 +1,30 @@
-import React from "react"
+import React, { useCallback, useEffect, useMemo } from "react"
 import "../../css/telemetry.css"
 import { Battery, Status } from "./components"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faTemperatureThreeQuarters, faWind, faWater } from "@fortawesome/free-solid-svg-icons"
 import { IconProp } from "@fortawesome/fontawesome-svg-core"
 import { Link } from "react-router-dom"
+import { useTelemetry } from "../../hooks/useTelemetry"
+import { useSerialNetwork } from "../../contexts/serialNetwork"
 export default function() {
+    const { error : serialError , setListener } = useSerialNetwork()
+
+    const serialReader = useMemo(() => {
+        return new ReadableStream({
+            start : (controller) => {
+                setListener((data : string) => {
+                    controller.enqueue(data)
+                })
+            }
+        })
+    }, [])
+
+    const { data, error : telemetryError } = useTelemetry({ reader : serialReader })    
+
+    useEffect(() => {
+        console.log(`[Data Change] : ${data}`)
+    } ,[data])    
     return (
         <div className="telemetry">
             <Screen/>
